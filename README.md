@@ -7,9 +7,10 @@ It removes non-digit characters and ensures numbers are valid before formatting 
 
 ## Installation
 
-This is a standalone Ruby library. Clone or download the repo and require it in your Ruby scripts.
+This is a standalone Ruby library. Clone or download the repo and run the test cases.
 
 ```bash
 git clone https://github.com/Anusha1401/mobile_number_formatter.git/
 cd mobile_number_formatter
 bundle install
+rspec spec/formatter/phone_number/uk_spec.rb
