@@ -6,17 +6,26 @@ module Formatter
 
       def self.format(number)
         number = remove_spaces(number)
-        raise InvalidPhoneNumberError, 'Number must be within the valid length' if invalid_length?(number)
+        raise InvalidLengthError if invalid_length?(number)
+
+        raise InvalidCharacterError if special_characters?(number)
 
         number = sanitize_number(number)
         last10 = last_10_digits(number)
         return append_code(last10) if valid_uk_number?(number)
 
-        raise InvalidPhoneNumberError, 'Number is not valid'
+        raise InvalidFormatError
       end
 
       def self.invalid_length?(number)
         number.length > 13 || number.length < 10
+      end
+
+      def self.special_characters?(number)
+        number.slice!(0) if number.start_with?('+')
+        return false if number.count('0-9') == number.length
+
+        true
       end
 
       def self.append_code(number)
